@@ -1,0 +1,215 @@
+Code specifications of the trading bot algorithms:
+
+algorithm1 :
+    - Median price over time as a cut-off for first trade decision
+    - Net benefit rate cut-off for trade decisions
+    - Time-step between each price check
+
+algorithm1.1 :
+    - Based on algorithm 1 with a hard start date threshold set on the 1st of
+    January 2019
+
+algorithm1.2 :
+    - Based on algorithm 1 with hard start and end date thresholds set on the
+    1st of January 2019 and 1st of January 2020 respectively
+
+algorithm1.3 :
+    - Based on algorithm 1 with a hard start date threshold set on the 1st of
+    July 2019
+
+algorithm2 :
+    - Median price over a certain window of time as a cut-off for all BUY trade decisions
+    - Net benefit rate cut-off for trade decisions
+    - Time-step between each price check
+
+algorithm2.1 :
+    - Based on algorithm 2 with a hard start date threshold set on the 1st of
+    January 2019
+
+algorithm2.2 :
+    - Based on algorithm 2 with hard start and end date thresholds set on the
+    1st of January 2019 and 1st of January 2020 respectively
+
+algorithm2.3 :
+    - Based on algorithm 2 with a hard start date threshold set on the 1st of
+    July 2019
+
+algorithm3 :
+    => Time-step between each price check seems to perform best when it is set at 1 min and
+    will be set to 1 min by default from now on to free one parameter in the benchmark
+    - Net benefit rate cut-off for trade decisions
+    - Median price over a certain window of time as a cut-off for all BUY trade decisions
+    - Median price over a certain window of time as a cut-off for all SELL trade decisions as
+    an additional condition to the min benefit set
+
+algorithm3.1 :
+    - All parameters are the same as for algorithm3, but the time window for a trade to
+    be accepted is +/- 15 seconds instead of +/- 30 seconds. This time window will remain
+    the same for the following algorithms unless specified
+
+algorithm3.2 :
+    - All parameters are the same as for algorithm3.1, but the window of the BUY and SELL
+    history size has been enlarged so as to test longest time histories
+    - Time-step was set to 2 minutes instead of 1 to decrease the computation time
+
+algorithm3.3 :
+    - Based on algorithm 3.2 with a hard start date threshold set on the 1st of
+    January 2019
+    - Time-step was set to 2 minutes instead of 1 to decrease the computation time
+
+algorithm3.4 :
+    - Based on algorithm 3.2 with hard start and end date thresholds set on the
+    1st of January 2019 and 1st of January 2020 respectively
+
+algorithm3.5 :
+    - Based on algorithm 3.2 with a hard start date threshold set on the 1st of
+    July 2019
+
+algorithm4 :
+    => Owing to excessive run time, time-step was set back to 2 minutes
+    => Benefit rate cut-off is set with a default value of 1.05, based on the results of the
+    algorithm 3 and 3.1
+    => History of the median price for BUY trade decisions is set to a size of 10 (x2 min),
+    based on the results of the algorithm 3 and 3.1
+    => History of the median price for SELL trade decisions is set to a size of 21600 (x2 min),
+    based on the results of the algorithms 3
+    - History size of the linear regression
+    - Slope of the linear regression
+
+algorithm4.1 :
+    - Based on algorithm 4 with a hard start date threshold set on the 1st of
+    January 2019
+
+algorithm4.2 :
+    - Based on algorithm 4 with hard start and end date thresholds set on the
+    1st of January 2019 and 1st of January 2020 respectively
+
+algorithm4.3 :
+    - Based on algorithm 4 with a hard start date threshold set on the 1st of
+    July 2019
+
+algorithm5 (opportunist algorithm trial) :
+    => Based on the small size of the dataset, the time-step is set to 1 minute
+    => Only trades on the data of December 2020
+    => Owing to its opportunistic purpose, the algorithm is only tested on the following
+    cryptocurrencies: "XXBT", "XETH", "ADA", "XXLM"
+    - A drop rate of the median close price is computed over a short interval of time
+    - The short interval over which the drop rate is computed
+    - A recovery rate (increase rate after a drop) is used as a trigger for the BUY
+    - A minimal benefit after the BUY requires to be met to SELL
+    - A linear regression is computed over a specific interval of time
+    The algorithm will catch a quick median price drop (few hours) and will override
+    a minimal value until it reaches the real minimum. If the prices increases more
+    than the recovery rate times the minimum, the price is considered as recovering
+    and the algorithm will BUY. Similarly, once a BUY is performed and the minimal
+    benefit is exceeded, the price will override the maximum, until a drop of the magnitude
+    of the recovery rate is observed, which will trigger the SELL action.
+
+algorithm5.1 :
+    - Based on algorithm 5 with the start date set on the introduction date of
+    each cryptocurrency on Kraken
+
+algorithm5.2 :
+    - Based on algorithm 5 with a hard start date threshold set on the 1st of
+    January 2019
+
+algorithm5.3 :
+    - Based on algorithm 5 with hard start and end date thresholds set on the
+    1st of January 2019 and 1st of January 2020 respectively
+
+algorithm5.4 :
+    - Based on algorithm 5 with a hard start date threshold set on the 1st of
+    July 2019
+
+algorithm5.5 :
+    - Based on algorithm 5 with the start date set on the introduction date of
+    each cryptocurrency on Kraken
+    - All the 32 cryptocurrencies curated for this algorithm development project
+    were included
+
+algorithm5.6 :
+    - Based on algorithm 5 with all the 32 cryptocurrencies curated for this
+    algorithm development project included
+
+algorithm5.7 :
+    - Based on algorithm 5 with hard start and end date thresholds set on the
+    1st of January 2019 and 1st of January 2020 respectively
+    - All the 32 cryptocurrencies curated for this algorithm development project
+    were included
+
+algorithm5.8 :
+    - Based on algorithm 5 with a static end tendency value and more drop rate and
+    drop time frame combinations
+
+algorithm5.9 :
+    - Based on algorithm 5.8 with the start date set on the introduction date of
+    each cryptocurrency on Kraken
+
+algorithm5.10 :
+    - Based on algorithm 5.8 with a hard start date threshold set on the 1st of
+    January 2019
+
+algorithm5.11 :
+    - Based on algorithm 5.8 with hard start and end date thresholds set on the
+    1st of January 2019 and 1st of January 2020 respectively
+
+algorithm5.12 :
+    - Based on algorithm 5 with a hard start date threshold set on the 1st of
+    July 2019
+
+=> Parameters of the benchmark 51 were chosen for the trading bot, after an extensive
+comparison of the evaluation of the benchmarks of the algorithms 5-5.12
+
+algorithm6 :
+    - Based on algorithm 5 with over-buy implemented as an additional feature:
+        - In case the previous operation is BUY and the price has undergone a hard drop,
+        the algorithm will OVERBUY
+        - In case of OVERBUY, the algorithm will combine both order prices to display a more
+        realistic final value
+
+algorithm6.1 :
+    - Based on algorithm 6 with the start date set on the introduction date of
+    each cryptocurrency on Kraken
+    - All the 32 cryptocurrencies curated for this algorithm development project
+    were included
+
+algorithm6.2 :
+    - Based on algorithm 6 with a hard start date threshold set on the 1st of
+    July 2019
+    - All the 32 cryptocurrencies curated for this algorithm development project
+    were included
+
+algorithm6.3 :
+    - Based on algorithm 6 with hard start and end date thresholds set on the
+    1st of January 2019 and 1st of January 2020 respectively
+    - All the 32 cryptocurrencies curated for this algorithm development project
+    were included
+
+algorithm6.4 :
+    - Based on algorithm 6 with a hard start date threshold set on the 1st of
+    July 2019
+    - All the 32 cryptocurrencies curated for this algorithm development project
+    were included
+
+algorithm7 :
+    - Computes one weekly and one monthly linear regression
+    - BUY when price is 2% below the price predicted with the weekly linear regression 
+    and 1% below the price predicted with the monthly linear regression
+    - SELL when benefit of 5% is reached
+    - The time period is the launch of the concerned cryptocurrencies until mid-2020
+    - The benchmark includes the Bitcoin, Ethereum, Cardano and Stellar
+
+algorithm7.1 :
+    - Based on algorithm 6 with a hard start date threshold set on the 1st of
+    July 2019
+
+algorithm7.2 :
+    - Based on algorithm 6 with hard start and end date thresholds set on the
+    1st of January 2019 and 1st of January 2020 respectively
+
+algorithm7.3 :
+    - Based on algorithm 6 with a hard start date threshold set on the 1st of
+    July 2019
+
+
+Consider using the coefficient of determination to assess when the slope makes sense
